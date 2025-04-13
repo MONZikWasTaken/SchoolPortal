@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}Invatamint Dual - Innovative Education{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="hero-title">Transforming Education for the <span class="highlight">Future</span></h1>
+                <p class="hero-subtitle">A revolutionary approach combining traditional teaching methods with cutting-edge digital learning experiences.</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('about') }}" class="btn btn-primary btn-lg me-3">Learn More</a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg">Join Today</a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="hero-image-container">
+                    <img src="{{ url_for('static', filename='img/hero-image.jpg') }}" alt="Students learning in a modern environment" class="img-fluid rounded hero-image">
+                    <div class="hero-shape-1"></div>
+                    <div class="hero-shape-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Why Choose <span class="highlight">Invatamint Dual</span></h2>
+            <p>Discover the benefits of our innovative dual education approach</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <h3>Dual Learning</h3>
+                    <p>Perfect balance between traditional classroom and digital learning experiences.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3>Expert Faculty</h3>
+                    <p>Learn from industry professionals and experienced educators dedicated to your success.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-lightning"></i>
+                    </div>
+                    <h3>Future Skills</h3>
+                    <p>Curriculum designed to develop essential skills for the jobs of tomorrow.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-globe"></i>
+                    </div>
+                    <h3>Global Perspective</h3>
+                    <p>International collaborations and exchange programs broaden your horizons.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <div class="stat-number">1500+</div>
+                    <div class="stat-label">Students</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <div class="stat-number">120</div>
+                    <div class="stat-label">Expert Teachers</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Partner Companies</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News Section -->
+<section class="news-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Latest <span class="highlight">News</span></h2>
+            <p>Stay updated with what's happening at Invatamint Dual</p>
+        </div>
+        <div class="row g-4">
+            {% if news %}
+                {% for post in news[:3] %}
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            <img src="{{ url_for('static', filename='img/news-placeholder.jpg') }}" alt="{{ post.title }}" class="img-fluid">
+                        </div>
+                        <div class="news-card-body">
+                            <div class="news-card-date">{{ post.created_at }}</div>
+                            <h3 class="news-card-title">{{ post.title }}</h3>
+                            <p class="news-card-excerpt">{{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}</p>
+                            <a href="{{ url_for('news_detail', post_id=post.id) }}" class="btn btn-link">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>No news available at the moment.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('news') }}" class="btn btn-outline-primary">View All News</a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>What Our <span class="highlight">Students Say</span></h2>
+            <p>Hear from the students who experienced our innovative education approach</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Invatamint Dual has transformed my educational journey. The blend of traditional and digital learning is exactly what I needed to excel in today's world."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('static', filename='img/testimonial-1.jpg') }}" alt="Maria Popescu" class="testimonial-avatar">
+                        <div>
+                            <h5>Maria Popescu</h5>
+                            <p>Computer Science Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The faculty's expertise and the practical approach to learning gave me the confidence to pursue my career goals. I'm thankful for the opportunities Invatamint Dual provided."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('static', filename='img/testimonial-2.jpg') }}" alt="Alexandru Ionescu" class="testimonial-avatar">
+                        <div>
+                            <h5>Alexandru Ionescu</h5>
+                            <p>Business Administration Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The global perspective and industry connections at Invatamint Dual helped me secure an internship at a top company. The dual education model truly prepares you for the real world."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('static', filename='img/testimonial-3.jpg') }}" alt="Elena Dumitrescu" class="testimonial-avatar">
+                        <div>
+                            <h5>Elena Dumitrescu</h5>
+                            <p>Engineering Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2>Ready to transform your educational journey?</h2>
+                <p>Join Invatamint Dual today and experience the future of education.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

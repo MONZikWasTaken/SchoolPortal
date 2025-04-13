@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title if post else 'Статья не найдена' }} - Школьный Портал{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    {% if not post %}
+        <div class="alert alert-warning">
+            <h4 class="alert-heading">Публикация не найдена!</h4>
+            <p>Запрашиваемая статья не существует или была удалена.</p>
+            <hr>
+            <p class="mb-0">
+                <a href="{{ url_for('news') }}" class="btn btn-outline-primary">Вернуться к списку новостей</a>
+            </p>
+        </div>
+    {% else %}
+        <div class="mb-4">
+            <a href="{{ url_for('news') }}" class="text-decoration-none">&larr; Вернуться к списку новостей</a>
+        </div>
+        
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h1 class="card-title mb-3">{{ post.title }}</h1>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="text-muted">
+                        <small>
+                            Автор: {{ post.author }}<br>
+                            Опубликовано: {{ post.created_at }}
+                        </small>
+                    </div>
+                    
+                    {% if is_logged_in and (user.role == 'admin' or (user.id == post.user_id)) %}
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-sm btn-outline-secondary" onclick="alert('Функция редактирования в разработке')">Редактировать</a>
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Удалить</button>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="post-content">
+                    <!-- Convert new lines to paragraphs -->
+                    {% for paragraph in post.content.split('\n\n') %}
+                        {% if paragraph %}
+                            <p>{{ paragraph|safe }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Delete Confirmation Modal -->
+        {% if is_logged_in and (user.role == 'admin' or (user.id == post.user_id)) %}
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы уверены, что хотите удалить эту публикацию?</p>
+                        <p class="text-danger"><strong>Внимание:</strong> Это действие нельзя отменить.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-danger" onclick="alert('Функция удаления в разработке')">Удалить публикацию</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %} 

@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль - Школьный Портал{% endblock %}
+
+{% block content %}
+<div class="profile-section">
+    <div class="container">
+        <!-- User header card -->
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <div class="avatar-placeholder bg-primary text-white d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; font-size: 2.5rem; font-weight: 700;">
+                    {{ user.username[:2].upper() if user and user.username else '?' }}
+                </div>
+                <div class="edit-avatar" title="Изменить фото">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <div class="profile-info">
+                <h3>{{ user.username }} 
+                    <span class="badge">
+                        {% if user.role == 'admin' %}
+                            Администратор
+                        {% elif user.role == 'organization' %}
+                            Организация
+                        {% else %}
+                            Пользователь
+                        {% endif %}
+                    </span>
+                </h3>
+                <div class="profile-meta">
+                    <div class="profile-meta-item">
+                        <i class="fas fa-envelope"></i>
+                        {{ user.email or 'Не указан' }}
+                    </div>
+                    <div class="profile-meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        На сайте с {{ user.created_at|default('01.01.2023', true) }}
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-outline-primary" id="editProfileBtn">
+                        <i class="fas fa-user-edit me-2"></i>Редактировать профиль
+                    </button>
+                    <button class="btn btn-outline-danger" id="deleteAccountBtn">
+                        <i class="fas fa-user-times me-2"></i>Удалить аккаунт
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabs navigation -->
+        <ul class="nav nav-pills profile-tabs" id="profileTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="activity-tab" data-bs-toggle="tab" data-bs-target="#activity" type="button" role="tab" aria-controls="activity" aria-selected="true">
+                    <i class="fas fa-history me-2"></i>Активность
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts" type="button" role="tab" aria-controls="posts" aria-selected="false">
+                    <i class="fas fa-newspaper me-2"></i>Мои публикации
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
+                    <i class="fas fa-cog me-2"></i>Настройки
+                </button>
+            </li>
+        </ul>
+        
+        <!-- Tab contents -->
+        <div class="tab-content" id="profileTabsContent">
+            <!-- Activity tab -->
+            <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h4><i class="fas fa-history"></i>История активности</h4>
+                    </div>
+                    
+                    <!-- Activity items -->
+                    <div class="activity-item">
+                        <div class="activity-date">
+                            <i class="fas fa-clock"></i> Сегодня, 12:30
+                        </div>
+                        <div class="activity-content">
+                            Успешный вход в систему с устройства.
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-date">
+                            <i class="fas fa-clock"></i> Вчера, 15:45
+                        </div>
+                        <div class="activity-content">
+                            Комментарий к публикации <a href="#">"Новые методики обучения"</a>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-date">
+                            <i class="fas fa-clock"></i> 10.06.2023, 09:15
+                        </div>
+                        <div class="activity-content">
+                            Обновление данных профиля
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Posts tab -->
+            <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h4><i class="fas fa-newspaper"></i>Мои публикации</h4>
+                        <a href="{{ url_for('create_post') if 'create_post' in url_for_rules else '#' }}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus me-1"></i>Новая публикация
+                        </a>
+                    </div>
+                    
+                    {% if posts %}
+                        {% for post in posts %}
+                            <div class="user-posts-item">
+                                <div class="user-posts-image">
+                                    <img src="{{ post.image or url_for('static', filename='img/post-placeholder.jpg') }}" alt="{{ post.title }}">
+                                </div>
+                                <div class="user-posts-content">
+                                    <h5 class="user-posts-title">{{ post.title }}</h5>
+                                    <div class="user-posts-meta">
+                                        <i class="fas fa-calendar-alt"></i> {{ post.created_at }}
+                                    </div>
+                                    <p>{{ post.content|truncate(150) }}</p>
+                                    <div class="user-posts-actions">
+                                        <a href="{{ url_for('post_details', post_id=post.id) }}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye me-1"></i>Просмотр
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-edit me-1"></i>Редактировать
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash me-1"></i>Удалить
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-5">
+                            <div class="mb-4 text-muted">
+                                <i class="fas fa-newspaper fa-3x mb-3"></i>
+                                <h5>У вас пока нет публикаций</h5>
+                                <p>Начните делиться интересной информацией с сообществом</p>
+                            </div>
+                            <a href="{{ url_for('create_post') if 'create_post' in url_for_rules else '#' }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Создать публикацию
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Settings tab -->
+            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <!-- Password change card -->
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h4><i class="fas fa-lock"></i>Смена пароля</h4>
+                    </div>
+                    
+                    <form id="changePasswordForm" class="profile-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="currentPassword" class="form-label">Текущий пароль</label>
+                                    <input type="password" class="form-control" id="currentPassword" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="newPassword" class="form-label">Новый пароль</label>
+                                    <input type="password" class="form-control" id="newPassword" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="confirmPassword" class="form-label">Подтверждение пароля</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">
+                            <i class="fas fa-key me-2"></i>Изменить пароль
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Notification settings card -->
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h4><i class="fas fa-bell"></i>Настройки уведомлений</h4>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                            <label class="form-check-label" for="emailNotifications">Email уведомления</label>
+                            <div class="form-check-description">Получать уведомления о новостях и событиях на email</div>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="newPostNotifications" checked>
+                            <label class="form-check-label" for="newPostNotifications">Уведомления о новых публикациях</label>
+                            <div class="form-check-description">Получать уведомления когда публикуются новые материалы</div>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="commentsNotifications" checked>
+                            <label class="form-check-label" for="commentsNotifications">Комментарии</label>
+                            <div class="form-check-description">Получать уведомления о новых комментариях к вашим публикациям</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary mt-3" id="saveNotificationBtn">
+                        <i class="fas fa-save me-2"></i>Сохранить настройки
+                    </button>
+                    
+                    <!-- Danger zone -->
+                    <div class="danger-zone mt-5">
+                        <h5><i class="fas fa-exclamation-triangle me-2"></i>Опасная зона</h5>
+                        <p>Действия в этой секции могут привести к необратимым последствиям для вашего аккаунта</p>
+                        <button class="btn btn-danger" id="accessDeleteAccountBtn">
+                            <i class="fas fa-user-times me-2"></i>Удалить аккаунт
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Редактирование профиля</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm" class="profile-form">
+                    <div class="mb-3 text-center">
+                        <div class="profile-avatar mx-auto mb-3" style="width: 100px; height: 100px;">
+                            <div class="avatar-placeholder bg-primary text-white d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; font-size: 2rem; font-weight: 700;">
+                                {{ user.username[:2].upper() if user and user.username else '?' }}
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-camera me-2"></i>Изменить фото
+                        </button>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <input type="text" class="form-control" id="username" value="{{ user.username }}" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" value="{{ user.email or '' }}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="bio" class="form-label">О себе</label>
+                        <textarea class="form-control" id="bio" rows="3"></textarea>
+                        <div class="form-text">Короткая информация о вас, которая будет видна другим пользователям</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveProfileBtn">
+                    <i class="fas fa-save me-2"></i>Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Account Modal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAccountModalLabel">Удаление аккаунта</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <p><i class="fas fa-exclamation-triangle me-2"></i><strong>Внимание!</strong> Вы собираетесь удалить свой аккаунт.</p>
+                    <p>Это действие <strong>невозможно отменить</strong>. Все ваши данные будут безвозвратно удалены из системы.</p>
+                </div>
+                <form id="deleteAccountForm">
+                    <div class="form-group mb-3">
+                        <label for="deleteConfirm" class="form-label">Введите "УДАЛИТЬ" для подтверждения</label>
+                        <input type="text" class="form-control" id="deleteConfirm" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn" disabled>
+                    <i class="fas fa-trash me-2"></i>Удалить аккаунт
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Edit Profile Modal
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+        
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener('click', function() {
+                editProfileModal.show();
+            });
+        }
+        
+        // Delete Account Modal
+        const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+        const accessDeleteAccountBtn = document.getElementById('accessDeleteAccountBtn');
+        const deleteAccountModal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
+        const deleteConfirmInput = document.getElementById('deleteConfirm');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        
+        if (deleteAccountBtn) {
+            deleteAccountBtn.addEventListener('click', function() {
+                deleteAccountModal.show();
+            });
+        }
+        
+        if (accessDeleteAccountBtn) {
+            accessDeleteAccountBtn.addEventListener('click', function() {
+                deleteAccountModal.show();
+            });
+        }
+        
+        if (deleteConfirmInput && confirmDeleteBtn) {
+            deleteConfirmInput.addEventListener('input', function() {
+                confirmDeleteBtn.disabled = this.value !== 'УДАЛИТЬ';
+            });
+        }
+        
+        // Form submissions and other client-side logic would go here
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% block title %}О нас - Invatamint Dual{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>О нас</h1>
+        <p>Познакомьтесь с нашей историей, миссией и командой</p>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="about-content">
+                    <h2>О <span class="highlight">Invatamint Dual</span></h2>
+                    <p>Invatamint Dual - это современная информационная система, предназначенная для организации эффективного взаимодействия между учениками, учителями, родителями и администрацией.</p>
+                    <p>Наш портал предоставляет единую точку доступа к важной информации и удобные инструменты для всех участников образовательного процесса.</p>
+                    <div class="mb-4">
+                        <h3>Что мы предлагаем:</h3>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Доступ к актуальной информации о событиях и мероприятиях</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Публикация новостей и объявлений</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Личные кабинеты для учеников, учителей и родителей</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Взаимодействие с партнерскими организациями</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-image">
+                    <img src="{{ url_for('static', filename='img/about-image.jpg') }}" alt="Invatamint Dual" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center mb-5">
+                <h2>Наша <span class="highlight">миссия</span></h2>
+                <p class="lead mt-3">Создание современной образовательной среды с использованием информационных технологий для повышения качества образования и развития навыков 21-го века у учащихся.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-info-circle"></i>
+                    </div>
+                    <h3>Информация</h3>
+                    <p>Улучшение доступности информации для всех участников образовательного процесса.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3>Взаимодействие</h3>
+                    <p>Создание удобных инструментов для взаимодействия учеников, учителей и родителей.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h3>Управление</h3>
+                    <p>Повышение эффективности управления образовательным процессом.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-laptop"></i>
+                    </div>
+                    <h3>Цифровизация</h3>
+                    <p>Развитие цифровых навыков у учащихся и педагогов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Наша <span class="highlight">команда</span></h2>
+            <p>Познакомьтесь с руководством Invatamint Dual</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="{{ url_for('static', filename='img/team-1.jpg') }}" alt="Иванов Иван Иванович">
+                    </div>
+                    <div class="team-info">
+                        <h3>Иванов Иван Иванович</h3>
+                        <p>Директор</p>
+                        <p class="text-muted"><i class="bi bi-envelope"></i> director@school-portal.ru</p>
+                        <div class="team-socials">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="{{ url_for('static', filename='img/team-2.jpg') }}" alt="Петрова Екатерина Петровна">
+                    </div>
+                    <div class="team-info">
+                        <h3>Петрова Екатерина Петровна</h3>
+                        <p>Заместитель директора по учебной работе</p>
+                        <p class="text-muted"><i class="bi bi-envelope"></i> studies@school-portal.ru</p>
+                        <div class="team-socials">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="{{ url_for('static', filename='img/team-3.jpg') }}" alt="Сидоров Алексей Сергеевич">
+                    </div>
+                    <div class="team-info">
+                        <h3>Сидоров Алексей Сергеевич</h3>
+                        <p>Заместитель директора по ИТ</p>
+                        <p class="text-muted"><i class="bi bi-envelope"></i> it@school-portal.ru</p>
+                        <div class="team-socials">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info -->
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2>Контактная <span class="highlight">информация</span></h2>
+            <p>Вы всегда можете связаться с нами</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Адрес</h4>
+                        <p>ул. Школьная, 1<br>г. Москва, 123456</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Телефон</h4>
+                        <p>Приемная: +7 (123) 456-78-90<br>Секретарь: +7 (123) 456-78-91</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>info@school-portal.ru<br>support@school-portal.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2>Готовы присоединиться к нам?</h2>
+                <p>Начните свой образовательный путь с Invatamint Dual.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

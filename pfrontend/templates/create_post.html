@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Создание публикации - Школьный Портал{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h1 class="h2 mb-4">Создание публикации</h1>
+                    
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                    
+                    <form method="POST" action="{{ url_for('create_post') }}">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Заголовок</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="content" class="form-label">Содержание</label>
+                            <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+                            <div class="form-text">
+                                Вы можете использовать двойные переносы строк для создания параграфов.
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('news') }}" class="btn btn-outline-secondary">Отмена</a>
+                            <button type="submit" class="btn btn-primary">Опубликовать</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto resize textarea as user types
+        const textarea = document.getElementById('content');
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+    });
+</script>
+{% endblock %} 

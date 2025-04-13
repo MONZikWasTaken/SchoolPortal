@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Новости - Invatamint Dual{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Новости и события</h1>
+        <p>Будьте в курсе последних событий и новостей из жизни Invatamint Dual</p>
+    </div>
+</section>
+
+<!-- News Search Section -->
+<section class="news-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="news-filter">
+                    <form action="{{ url_for('news') }}" method="GET" class="d-flex">
+                        <input type="text" name="search" class="form-control me-2" placeholder="Поиск по новостям..." value="{{ request.args.get('search', '') }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                    {% if request.args.get('search') %}
+                    <div class="alert alert-info mt-3">
+                        Результаты поиска: <strong>{{ request.args.get('search') }}</strong>
+                        <a href="{{ url_for('news') }}" class="float-end text-decoration-none">
+                            <i class="bi bi-x-circle"></i> Сбросить
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if is_logged_in and (user.role == 'admin' or user.role == 'organization') %}
+        <div class="text-center mb-4">
+            <a href="{{ url_for('create_post') }}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-1"></i> Создать публикацию
+            </a>
+        </div>
+        {% endif %}
+        
+        {% if not posts %}
+            <div class="col-12 text-center py-5">
+                <div class="empty-state">
+                    {% if request.args.get('search') %}
+                        <i class="bi bi-search display-4 mb-3 text-muted"></i>
+                        <h3>По вашему запросу ничего не найдено</h3>
+                        <p class="text-muted">Попробуйте изменить поисковый запрос или просмотрите все новости</p>
+                    {% else %}
+                        <i class="bi bi-newspaper display-4 mb-3 text-muted"></i>
+                        <h3>Нет доступных новостей</h3>
+                        <p class="text-muted">На данный момент публикации отсутствуют</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="row g-4 news-list">
+                {% for post in posts %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="news-card">
+                        <div class="news-card-image">
+                            <img src="{{ url_for('static', filename='img/news-placeholder.jpg') }}" alt="{{ post.title }}" class="img-fluid">
+                        </div>
+                        <div class="news-card-body">
+                            <div class="news-card-date">
+                                <i class="bi bi-calendar3"></i> {{ post.created_at }}
+                                {% if post.author %}
+                                <span class="mx-1">•</span>
+                                <i class="bi bi-person"></i> {{ post.author }}
+                                {% endif %}
+                            </div>
+                            <h3 class="news-card-title">
+                                <a href="{{ url_for('post_details', post_id=post.id) }}">{{ post.title }}</a>
+                            </h3>
+                            <p class="news-card-excerpt">{{ post.content[:150] }}{% if post.content|length > 150 %}...{% endif %}</p>
+                            <a href="{{ url_for('post_details', post_id=post.id) }}" class="news-card-link">Читать далее <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %} 
