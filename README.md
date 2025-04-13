@@ -66,12 +66,12 @@ school-portal/
 1. Clone the repository:
    ```bash
    git clone https://github.com/MONZikWasTaken/SchoolPortal.git
-   cd SchoolPortal
+   cd ../SchoolPortal
    ```
 
 2. Set up the backend:
    ```bash
-   cd pbackend
+   cd ../pbackend
    pip install -r requirements.txt
    ```
 
