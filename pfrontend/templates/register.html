@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Регистрация - Школьный Портал{% endblock %}
+{% block title %}Registration - Invatamint Dual{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center py-5">
@@ -12,7 +12,7 @@
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                         <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                     </svg>
-                    <h2 class="card-title">Регистрация</h2>
+                    <h2 class="card-title">Registration</h2>
                 </div>
                 
                 {% if success %}
@@ -27,7 +27,7 @@
                                 <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
                                 <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
                             </svg>
-                            Войти
+                            Login
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 {% if not success %}
                 <form method="POST" action="{{ url_for('register') }}">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Имя пользователя</label>
+                        <label for="username" class="form-label">Username</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -66,11 +66,11 @@
                             </span>
                             <input type="email" class="form-control" id="email" name="email">
                         </div>
-                        <div class="form-text">Необязательно, но рекомендуется для восстановления пароля</div>
+                        <div class="form-text">Optional, but recommended for password recovery</div>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="password" class="form-label">Пароль</label>
+                        <label for="password" class="form-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
@@ -82,7 +82,7 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label for="role" class="form-label">Тип аккаунта</label>
+                        <label for="role" class="form-label">Account Type</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
@@ -90,8 +90,8 @@
                                 </svg>
                             </span>
                             <select class="form-select" id="role" name="role">
-                                <option value="user" selected>Пользователь</option>
-                                <option value="organization">Организация</option>
+                                <option value="user" selected>User</option>
+                                <option value="organization">Organization</option>
                             </select>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                 <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                 <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                             </svg>
-                            Зарегистрироваться
+                            Register
                         </button>
                     </div>
                 </form>
@@ -110,8 +110,8 @@
                 
                 <div class="text-center mt-4">
                     <p class="mb-0">
-                        Уже есть аккаунт? 
-                        <a href="{{ url_for('login') }}" class="fw-bold text-decoration-none">Войти</a>
+                        Already have an account? 
+                        <a href="{{ url_for('login') }}" class="fw-bold text-decoration-none">Login</a>
                     </p>
                 </div>
             </div>

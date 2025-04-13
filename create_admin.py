@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-"""
-Admin User Creation Script for School Portal
-
-This script creates an admin user in the database for the School Portal application.
-It connects directly to the database to create the user with admin privileges.
-"""
 
 import os
 import sys
@@ -14,10 +8,8 @@ import getpass
 import json
 from dotenv import load_dotenv
 
-# Load environment variables from .env file if present
 load_dotenv()
 
-# Default API URL from environment or use default
 API_URL = os.environ.get('API_URL', 'http://localhost:5000/api/v1')
 
 def create_admin_user(username, email, password, api_url=API_URL):
@@ -29,19 +21,16 @@ def create_admin_user(username, email, password, api_url=API_URL):
     print(f"Email: {email}")
     print(f"API URL: {api_url}")
     
-    # Prepare the data for the API request
     data = {
         'username': username,
         'email': email,
         'password': password,
-        'role': 'admin'  # Set the role to admin
+        'role': 'admin'  
     }
     
-    # Create headers
     headers = {'Content-Type': 'application/json'}
     
     try:
-        # Make the API request to register the user
         register_url = f"{api_url}/auth/register"
         print(f"\nSending request to: {register_url}")
         
@@ -51,7 +40,6 @@ def create_admin_user(username, email, password, api_url=API_URL):
             headers=headers
         )
         
-        # Check if the request was successful
         if response.status_code == 200 or response.status_code == 201:
             result = response.json()
             if result.get('success'):
@@ -99,17 +87,14 @@ def main():
     
     args = parser.parse_args()
     
-    # Get username
     username = args.username
     if not username:
         username = input("Enter admin username: ")
     
-    # Get email
     email = args.email
     if not email:
         email = input("Enter admin email: ")
     
-    # Get password
     password = args.password
     if not password:
         password = getpass.getpass("Enter admin password: ")
@@ -119,10 +104,8 @@ def main():
             print("❌ Passwords do not match!")
             return 1
     
-    # Get API URL
     api_url = args.api_url or API_URL
     
-    # Validate input
     errors = validate_input(username, email, password)
     if errors:
         print("\n❌ Validation errors:")
@@ -130,7 +113,6 @@ def main():
             print(f"  - {error}")
         return 1
     
-    # Create the admin user
     success = create_admin_user(username, email, password, api_url)
     
     return 0 if success else 1

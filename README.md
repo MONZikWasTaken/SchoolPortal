@@ -65,8 +65,8 @@ school-portal/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/school-portal.git
-   cd school-portal
+   git clone https://github.com/MONZikWasTaken/SchoolPortal.git
+   cd SchoolPortal
    ```
 
 2. Set up the backend:
@@ -81,24 +81,24 @@ school-portal/
    pip install -r requirements.txt
    ```
 
-4. Create an admin user:
+4. Create an admin user (may not work, fix your self):
    ```bash
    python create_admin.py
    ```
 
-5. Start the backend server:
+6. Start the backend server:
    ```bash
    cd pbackend
    python app.py
    ```
 
-6. In a separate terminal, start the frontend server:
+7. In a separate terminal, start the frontend server:
    ```bash
    cd pfrontend
    python app.py
    ```
 
-7. Access the application in your browser at http://localhost:5000
+8. Access the application in your browser at http://localhost:5000 or http://localhost:5001
 
 ## Current Limitations
 
@@ -107,19 +107,25 @@ school-portal/
 - Some API endpoints may return mock data
 - Limited testing has been performed
 
-## Preview
+## Web Preview
 
-The application includes:
-- Login and registration pages
-- Admin dashboard
-- User profiles
-- News feed
-- Organization directory
+Here are some screenshots of the application in action:
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+*The main landing page with navigation and overview of the school portal*
+
+### About Page
+![About Page](screenshots/about.png)
+
+*Information about the school portal, its mission and features*
+
+### Login Page
+![Login Page](screenshots/login.png)
+
+*The secure authentication portal for users to access the system*
 
 ## Disclaimer
 
 This project is being shared "as-is" without warranty of any kind. Development was halted due to payment issues with the client, and the code is incomplete. Use at your own risk.
-
-## License
-
-MIT License 
